@@ -7,12 +7,12 @@ namespace EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class BlogsController : ControllerBase
     {
         private readonly ILogger _logger;
         private readonly ApplicationDbContext _dbContext;
 
-        public EmployeesController(ILogger<EmployeesController> logger, ApplicationDbContext dbContext)
+        public BlogsController(ILogger<BlogsController> logger, ApplicationDbContext dbContext)
         {
             this._logger = logger;
             this._dbContext = dbContext;
@@ -21,25 +21,25 @@ namespace EFCore.Controllers
         [HttpGet]
         public async Task<IActionResult> Get() { 
             
-         var employess = await _dbContext.Employees.ToListAsync();
+         var result = await _dbContext.Blogs.ToListAsync();
 
-         return Ok(employess);        
+         return Ok(result);        
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Employee emp)
+        public async Task<IActionResult> Create(Blog emp)
         {
-            var newEmployee = new Employee
+            var newBlog = new Blog
             {
-                Name = emp.Name,
+                Url = emp.Url,
             };
 
-            await _dbContext.Employees.AddAsync(newEmployee);
+            await _dbContext.Blogs.AddAsync(newBlog);
 
             await _dbContext.SaveChangesAsync();
 
-            return Ok(newEmployee);
+            return Ok(newBlog);
         }
     }
 }
