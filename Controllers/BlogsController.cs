@@ -19,11 +19,14 @@ namespace EFCore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get() { 
-            
-         var result = await _dbContext.Blogs.ToListAsync();
+        public async Task<IActionResult> Get() {
 
-         return Ok(result);        
+         var blog = _dbContext.Blogs.Single();
+
+
+         var blogAsync = await _dbContext.Blogs.SingleAsync();
+
+         return Ok();        
         }
 
 
